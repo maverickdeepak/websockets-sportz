@@ -29,13 +29,13 @@ matchesRouter.get('/', async (req, res) => {
 matchesRouter.post('/', async (req, res) => {
   const parsedInfo = createMatchSchema.safeParse(req.body);
 
-  const {
-    data: { startTime, endTime, homeScore, awayScore },
-  } = parsedInfo;
-
   if (!parsedInfo.success) {
     return res.status(400).json({ error: 'Invalid match data', details: parsedInfo.error });
   }
+
+  const {
+    data: { startTime, endTime, homeScore, awayScore },
+  } = parsedInfo;
 
   try {
     const [event] = await db
